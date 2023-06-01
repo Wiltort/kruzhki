@@ -19,9 +19,12 @@ class Group(models.Model):
     #week_lessons = models.PositiveSmallIntegerField(max = 30)
     id = models.AutoField(primary_key=True)
     rubric = models.ForeignKey(
-        Rubric,
+        'Rubric',
         on_delete=models.PROTECT,
-        related_name = 'groups'
+        related_name = 'groups',
+        blank = True,
+        null = True,
+          
         )
     def __str__(self):
         return self.name
@@ -43,6 +46,6 @@ class Schedule(models.Model):
         )
     #день недели. 0 - понедельник
     day = models.IntegerField(choices = DAYS)
-    time = models.TimeField()
+    time = models.TimeField(auto_now=True)
     
     
