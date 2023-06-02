@@ -1,6 +1,5 @@
 from django.db import models
 
-
 #class Day()
 # Create your models here.
 class Rubric(models.Model):
@@ -9,9 +8,11 @@ class Rubric(models.Model):
         primary_key=True, max_length=20, db_index=True, 
         verbose_name = 'Направление',
         )
+    class Meta:
+        verbose_name = 'Направление'
+        verbose_name_plural = 'Направления'
+        order_by = ['name']
     
-
-
 class Group(models.Model):
     name = models.CharField(max_length=50)
     #название кружка
@@ -23,8 +24,7 @@ class Group(models.Model):
         on_delete=models.PROTECT,
         related_name = 'groups',
         blank = True,
-        null = True,
-          
+        null = True,       
         )
     def __str__(self):
         return self.name
@@ -47,5 +47,3 @@ class Schedule(models.Model):
     #день недели. 0 - понедельник
     day = models.IntegerField(choices = DAYS)
     time = models.TimeField(auto_now=True)
-    
-    
