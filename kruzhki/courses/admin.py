@@ -7,4 +7,5 @@ class Stud_GroupAdmin(admin.ModelAdmin):
     search_fields = ('name', 'teacher')
     list_filter = ('teacher',)
 
+
 admin.site.register(Stud_Group, Stud_GroupAdmin)
