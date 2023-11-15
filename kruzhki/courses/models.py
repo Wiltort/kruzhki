@@ -4,38 +4,40 @@ from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
-def validate_teacher(T):
-    t = User.objects.get(id = T)
-    if not t.is_staff:
-        raise ValidationError(
-            'Пользователь %(name) не является преподавателем', 
-            code='has_no_permission',
-            params={'name': T.username})
-
 
 class Stud_Group(models.Model):
     name = models.CharField(verbose_name='Группа', unique=True, max_length=50)
     title = models.CharField(verbose_name='Название курса', max_length=150)
-    teacher = models.ForeignKey(User, on_delete=models.DO_NOTHING, 
-                                related_name='work_group', 
+    teacher = models.ForeignKey(User, on_delete=models.PROTECT, 
+                                related_name='groups', 
                                 verbose_name='Преподаватель', 
                                 limit_choices_to={'is_staff': True})
     description = models.TextField(verbose_name='Описание', 
-                                   blank=True, null=True)
-    students = models.ManyToManyField(User,
-                                      verbose_name='Обучающиеся', 
-                                      related_name='stud_groups',
-                                      limit_choices_to={'is_staff': False},
-                                      )
-    #teacher настроить на роль преподавателя
-    #в модели учеников сделать ссылку на Группу
-    # в модели предметы сделать ссылку
+                                   blank=True)
+    
+
+class Student(models.Model):
+    user = models.ForeignKey(User, related_name='study',
+                             limit_choices_to={'is_staff': False})
+    in_group = models.ForeignKey(Stud_Group, related_name='students')
 
 
-#class lesson(models.Model):
-#    stud_group = models.ForeignKey()
+class Lesson(models.Model):
+    stud_group = models.ForeignKey(Stud_Group, related_name='lessons',
+                                   verbose_name='Занятия', 
+                                   on_delete=models.PROTECT)
+    date = models.DateTimeField(verbose_name='Время и дата')
+    topic = models.CharField(max_length=150)
+    
 
-#class Student(models.Model):
+class Attending(models.Model):
+    lesson = models.ForeignKey(Lesson, related_name='attending', 
+                               on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, related_name='attending')
+    is_present = models.BooleanField(verbose_name='Посещение')
+    is_passed = models.BooleanField(verbose_name='Зачет')
 
 
-# Create your models here.
+class Schedule(models.Model):
+    group = models.ForeignKey(Stud_Group, related_name='Расписание')
+    #day_of_week = models.Ch
