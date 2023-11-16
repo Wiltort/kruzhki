@@ -5,6 +5,10 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class Rubric(models.Model):
+    name = models.CharField(max_length=150)
+
+
 class Stud_Group(models.Model):
     name = models.CharField(verbose_name='Группа', unique=True, max_length=50)
     title = models.CharField(verbose_name='Название курса', max_length=150)
@@ -15,6 +19,8 @@ class Stud_Group(models.Model):
     description = models.TextField(verbose_name='Описание', 
                                    blank=True)
     number_of_lessons = models.SmallIntegerField()
+    rubric = models.ForeignKey(Rubric, on_delete=models.PROTECT, blank=True,
+                               null=True)
     
 
 class Student(models.Model):
