@@ -7,7 +7,7 @@ from .models import Stud_Group
 
 
 class Stud_GroupAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name', 'teacher')
+    list_display = ('pk', 'name', 'title', 'teacher')
     search_fields = ('name', 'teacher')
     list_filter = ('teacher',)
 
