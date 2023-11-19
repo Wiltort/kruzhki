@@ -7,6 +7,7 @@ User = get_user_model()
 
 class Rubric(models.Model):
     name = models.CharField(max_length=150)
+    image = models.ImageField(upload_to='rubric/', blank=True, null = True)
 
 
 class Stud_Group(models.Model):
