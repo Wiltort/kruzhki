@@ -9,6 +9,9 @@ class Rubric(models.Model):
     name = models.CharField(max_length=150)
     image = models.ImageField(upload_to='rubric/', blank=True, null = True)
 
+    def __str__(self):
+        return self.name
+
 
 class Stud_Group(models.Model):
     name = models.CharField(verbose_name='Группа', unique=True, max_length=50)
