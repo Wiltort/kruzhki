@@ -40,4 +40,6 @@ jobs:
       #  run: flake8 
 
       - name: Tests
-        run: python kruzhki/manage.py test
+        run: |
+          cd kruzhki/
+          python manage.py test
