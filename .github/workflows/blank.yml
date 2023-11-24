@@ -39,5 +39,5 @@ jobs:
       #- name: Lint with flake8
       #  run: flake8 
 
-      - name: Test with pytest
+      - name: Tests
         run: python kruzhki/manage.py test
