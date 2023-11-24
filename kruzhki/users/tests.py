@@ -31,3 +31,10 @@ class TokenTest(TestCase):
             res.status_code, 200, 
             msg = 'У авторизованного юзера нет доступа к странице юзеров'
         )
+        res = self.client.get('/api/v1/users/2/', headers = data)
+        self.assertEqual(res.status_code, 200, 
+                         msg='Страница пользователя доступна')
+        user = User.objects.get(id = 2)
+        self.assertContains(response=res, 
+                            text=user.username,
+                             msg_prefix='Юзер не обнаружен' )
