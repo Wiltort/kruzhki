@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from courses.models import Student, Stud_Group
 
 
 User = get_user_model()

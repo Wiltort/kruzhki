@@ -24,7 +24,7 @@ class Stud_Group(models.Model):
                                    blank=True)
     number_of_lessons = models.SmallIntegerField()
     rubric = models.ForeignKey(Rubric, on_delete=models.PROTECT, blank=True,
-                               null=True)
+                               null=True, related_name='stud_groups')
     
 
 class Student(models.Model):
@@ -50,6 +50,7 @@ class Attending(models.Model):
                                 on_delete=models.DO_NOTHING)
     is_present = models.BooleanField(verbose_name='Посещение')
     is_passed = models.BooleanField(verbose_name='Зачет')
+    points = models.SmallIntegerField(verbose_name='Оценка')
 
 
 class Schedule(models.Model):
@@ -63,7 +64,7 @@ class Schedule(models.Model):
         SUNDAY = 6, 'Воскресенье'
 
     import datetime
-    group = models.ForeignKey(Stud_Group, related_name='Расписание',
+    group = models.ForeignKey(Stud_Group, related_name='schedule',
                               on_delete=models.PROTECT)
     day_of_week = models.SmallIntegerField(choices=Days.choices)
     duration = models.DurationField(default=datetime.timedelta(minutes=45))
