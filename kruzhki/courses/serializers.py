@@ -2,20 +2,23 @@ from rest_framework import serializers
 from .models import Rubric, Stud_Group, Student, Lesson, Schedule
 
 
-class RubricSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Rubric
-        fields = ('id', 'name', 'image', 'stud_groups')
-
-
 class Stud_GroupSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Stud_Group
-        fields = ('id', 'name', 'title', 'teacher', 'description', 
+        fields = ['id', 'name', 'title', 'teacher', 'description', 
                   'number_of_lessons', 'rubric', 'students', 'lessons',
-                  'schedule')
+                  'schedule']
+
+
+class RubricSerializer(serializers.ModelSerializer):
+    stud_groups = Stud_GroupSerializer(many = True, read_only = True)
+    class Meta:
+        model = Rubric
+        fields = ['id', 'name', 'image', 'stud_groups']
+
+
+
         
 
 class StudentSerializer(serializers.ModelSerializer):

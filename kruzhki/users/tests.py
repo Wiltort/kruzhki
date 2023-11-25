@@ -1,6 +1,9 @@
 from django.test import TestCase, Client
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
+
+User = get_user_model()
+    
 
 class TokenTest(TestCase):
     def setUp(self):
@@ -13,7 +16,8 @@ class TokenTest(TestCase):
             is_staff = True
         )
         self.studuser = User.objects.create_user(
-            username='Luk', email='ta@tu.in', password='force'
+            username='Luk', email='ta@tu.in', password='force',
+            is_staff = False
         )
         
     def test_page(self):

@@ -50,7 +50,8 @@ class Attending(models.Model):
                                 on_delete=models.DO_NOTHING)
     is_present = models.BooleanField(verbose_name='Посещение')
     is_passed = models.BooleanField(verbose_name='Зачет')
-    points = models.SmallIntegerField(verbose_name='Оценка')
+    points = models.SmallIntegerField(verbose_name='Оценка', 
+                                      blank=True, null=True)
 
 
 class Schedule(models.Model):
