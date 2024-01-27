@@ -23,8 +23,8 @@ class Stud_Group(models.Model):
     description = models.TextField(verbose_name='Описание', 
                                    blank=True)
     number_of_lessons = models.SmallIntegerField()
-    rubric = models.ForeignKey(Rubric, on_delete=models.PROTECT, blank=True,
-                               null=True, related_name='stud_groups')
+    rubric = models.ForeignKey(Rubric, on_delete=models.PROTECT, 
+                               related_name='stud_groups')
     
 
 class Student(models.Model):
