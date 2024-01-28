@@ -16,6 +16,7 @@ class Rubric(models.Model):
 class Stud_Group(models.Model):
     name = models.CharField(verbose_name='Группа', unique=True, max_length=50)
     title = models.CharField(verbose_name='Название курса', max_length=150)
+    image = models.ImageField(upload_to='group/', blank=True, null = True)
     teacher = models.ForeignKey(User, on_delete=models.PROTECT, 
                                 related_name='work_groups', 
                                 verbose_name='Преподаватель', 
